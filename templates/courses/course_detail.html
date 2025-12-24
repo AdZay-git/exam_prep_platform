@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h2>{{ course.title }}</h2>
+    <p class="text-muted">Преподаватель: {{ course.teacher.username }}</p>
+    <p>{{ course.description }}</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Уроки</h4>
+        <ol class="list-group list-group-numbered">
+            {% for lesson in lessons %}
+                <li class="list-group-item">
+                    {{ lesson.title }}
+                </li>
+            {% empty %}
+                <li class="list-group-item">Уроков пока нет.</li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Тесты по курсу</h4>
+        <ul class="list-group">
+            {% for quiz in quizzes %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ quiz.title }}
+                    <a href="{% url 'quizzes:quiz_detail' quiz.pk %}"
+                       class="btn btn-sm btn-outline-primary">
+                        Пройти тест
+                    </a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">Тестов пока нет.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

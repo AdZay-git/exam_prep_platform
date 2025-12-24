@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои результаты{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Мои результаты</h2>
+
+{% if results %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Курс</th>
+            <th>Тест</th>
+            <th>Баллы</th>
+            <th>Дата</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for r in results %}
+            <tr>
+                <td>{{ r.quiz.course.title }}</td>
+                <td>{{ r.quiz.title }}</td>
+                <td>{{ r.score }}</td>
+                <td>{{ r.completed_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Вы ещё не проходили тесты.</p>
+{% endif %}
+{% endblock %}
